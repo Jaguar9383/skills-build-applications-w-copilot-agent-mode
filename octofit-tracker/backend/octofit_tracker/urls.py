@@ -17,8 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+import os
 
 from octofit_tracker.views import UserViewSet, TeamViewSet, ActivityViewSet, WorkoutViewSet, LeaderboardViewSet, api_root
+
+# Get codespace name from environment variable
+CODESPACE_NAME = os.environ.get('CODESPACE_NAME')
+
+# Determine the base URL
+if CODESPACE_NAME:
+    BASE_URL = f'https://{CODESPACE_NAME}-8000.app.github.dev'
+else:
+    BASE_URL = 'http://localhost:8000'
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)

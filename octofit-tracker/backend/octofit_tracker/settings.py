@@ -25,9 +25,14 @@ SECRET_KEY = 'django-insecure-5=5i_^xkbb_1@b+^mq$&9+rtdb=44qg!x=c&r9+u4w(%sk&6^h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+import os
 
-# Allow all hosts
-ALLOWED_HOSTS = ['*']
+# Allow codespace and localhost
+CODESPACE_NAME = os.environ.get('CODESPACE_NAME')
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+if CODESPACE_NAME:
+    ALLOWED_HOSTS.append(f'{CODESPACE_NAME}-8000.app.github.dev')
 
 
 # Application definition
@@ -162,3 +167,6 @@ CORS_ALLOW_METHODS = ['*']
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Custom User Model
+AUTH_USER_MODEL = 'octofit_tracker.User'
